@@ -60,27 +60,36 @@ public class ComeetAdapter implements AtsAdapter {
                     location = city == null ? country : country == null ? city : city + ", " + country;
                 }
             }
-            String link = Json.text(p, "url_active_page");
-            if (link == null) {
-                link = Json.text(p, "url_comeet_hosted_page");
-            }
+            String link = firstText(p, "urlActivePage", "urlComeetHostedPage", "url_active_page", "url_comeet_hosted_page");
             // Comeet exposes only time_updated, which is not a publish date, so publishedAt stays unknown.
             out.add(new RawJob(id, name, location, link, null));
         }
         return Optional.of(out);
     }
 
-    /** The JSON array literal that follows {@code COMPANY_POSITIONS_DATA =}, or null. */
+    private static final java.util.regex.Pattern ASSIGNMENT =
+            java.util.regex.Pattern.compile(MARKER + "\\s*=\\s*\\[");
+
+    private static String firstText(JsonNode n, String... fields) {
+        for (String f : fields) {
+            String v = Json.text(n, f);
+            if (v != null) {
+                return v;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * The JSON array literal assigned as {@code COMPANY_POSITIONS_DATA = [...]}, or null. The page also
+     * mentions the name in a bare declaration ("var COMPANY_POSITIONS_DATA;") first, which must be skipped.
+     */
     static String extractArray(String html) {
-        int m = html.indexOf(MARKER);
-        if (m < 0) {
+        java.util.regex.Matcher m = ASSIGNMENT.matcher(html);
+        if (!m.find()) {
             return null;
         }
-        int start = html.indexOf('[', m);
-        int eq = html.indexOf('=', m);
-        if (start < 0 || eq < 0 || start < eq) {
-            return null;
-        }
+        int start = m.end() - 1;
         int depth = 0;
         boolean inString = false;
         for (int i = start; i < html.length(); i++) {
