@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="he" dir="rtl" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>סורק משרות</title>
+<meta name="description" content="משרות חדשות בישראל, ישירות מעמודי הקריירה של החברות.">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preload" href="fonts/heebo-hebrew-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/frank-ruhl-libre-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<script>
+try {
+  var saved = localStorage.getItem('theme');
+  var theme = saved ? JSON.parse(saved) : (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+  document.documentElement.dataset.theme = theme === 'dark' ? 'dark' : 'light';
+} catch (e) { document.documentElement.dataset.theme = 'light'; }
+</script>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a class="skip" href="#feed">דילוג לרשימת המשרות</a>
+
+<div class="page">
+  <header class="top">
+    <div class="brand">
+      <svg class="brand__mark" viewBox="0 0 32 32" aria-hidden="true">
+        <path d="M5 21a12 12 0 0 1 22 0" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/>
+        <path d="M10 22a7 7 0 0 1 12 0" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/>
+        <circle cx="16" cy="24" r="2.6" class="brand__dot"/>
+      </svg>
+      <h1 class="brand__name">סורק משרות</h1>
+    </div>
+
+    <div class="top__end">
+      <p class="status" id="status" role="status" aria-live="polite">
+        <span class="status__dot" aria-hidden="true"></span>
+        <span class="status__text" id="status-text">טוען את הפיד…</span>
+      </p>
+      <button class="icon-btn" id="theme" type="button" aria-label="מעבר למצב כהה"></button>
+    </div>
+  </header>
+
+  <div class="alert" id="stale" role="alert" hidden></div>
+
+  <main class="layout">
+    <aside class="filters" id="filters" aria-label="סינון משרות">
+      <div class="filters__head">
+        <h2 class="filters__title">סינון</h2>
+        <button class="link-btn" id="clear" type="button">ניקוי</button>
+        <button class="icon-btn filters__close" id="filters-close" type="button" aria-label="סגירת הסינון"></button>
+      </div>
+
+      <section class="fgroup" aria-labelledby="f-level">
+        <h3 class="fgroup__title" id="f-level">ותק</h3>
+        <div class="chips" id="levels" role="group" aria-labelledby="f-level"></div>
+      </section>
+
+      <section class="fgroup" aria-labelledby="f-range">
+        <h3 class="fgroup__title" id="f-range">זמן גילוי</h3>
+        <div class="seg" id="range" role="group" aria-labelledby="f-range"></div>
+      </section>
+
+      <section class="fgroup" aria-labelledby="f-city">
+        <h3 class="fgroup__title" id="f-city">עיר</h3>
+        <div class="opts" id="cities" role="group" aria-labelledby="f-city"></div>
+      </section>
+
+      <section class="fgroup" aria-labelledby="f-company">
+        <h3 class="fgroup__title" id="f-company">חברה</h3>
+        <div class="select">
+          <select id="company" aria-labelledby="f-company"></select>
+        </div>
+      </section>
+
+      <section class="fgroup">
+        <label class="check">
+          <input type="checkbox" id="show-hidden">
+          <span class="check__box" aria-hidden="true"></span>
+          <span class="check__label" id="show-hidden-label">הצגת משרות שסימנתי כלא מעניינות</span>
+        </label>
+      </section>
+
+      <button class="btn btn--primary filters__apply" id="filters-apply" type="button">הצגת התוצאות</button>
+    </aside>
+
+    <section class="feed" id="feed" aria-label="משרות" tabindex="-1">
+      <div class="bar">
+        <div class="search">
+          <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m16.5 16.5 4 4"/></svg>
+          <input id="q" type="search" placeholder="חיפוש טייטל, חברה או עיר" autocomplete="off" aria-label="חיפוש משרות">
+        </div>
+        <button class="btn btn--filter" id="filters-open" type="button" aria-controls="filters">
+          <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M7 12h10M10 17h4"/></svg>
+          <span>סינון</span><span class="badge-count" id="filters-count" hidden></span>
+        </button>
+        <div class="tabs" role="tablist" aria-label="סוג משרות">
+          <button class="tab" role="tab" id="tab-new" data-tab="new" aria-selected="true" type="button">משרות חדשות <span class="tab__n" id="n-new"></span></button>
+          <button class="tab" role="tab" id="tab-companies" data-tab="companies" aria-selected="false" type="button">חברות חדשות במאגר <span class="tab__n" id="n-companies"></span></button>
+        </div>
+        <p class="count" id="count" aria-live="polite"></p>
+      </div>
+
+      <ol class="timeline" id="list"></ol>
+      <div class="more" id="more" hidden><button class="btn" id="more-btn" type="button">הצגת עוד משרות</button></div>
+      <div class="state" id="state" hidden></div>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <p>הפיד נבנה אוטומטית מעמודי הקריירה הרשמיים של החברות. ההגשה נעשית באתר החברה.</p>
+    <p><a href="https://github.com/guyor/job-scanner" rel="noopener">קוד המקור ב-GitHub</a></p>
+  </footer>
+</div>
+
+<div class="scrim" id="scrim" hidden></div>
+<div class="toast" id="toast" role="status" aria-live="polite" hidden>
+  <span class="toast__msg" id="toast-msg"></span>
+  <button class="toast__act" id="toast-act" type="button"></button>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>

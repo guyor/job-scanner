@@ -1,0 +1,293 @@
+{
+ "_comment": "Fictional demo data. Open the site with ?demo to preview the UI.",
+ "scanAgeMinutes": 4,
+ "stats": {
+  "companies": 1284,
+  "companiesNew": 2,
+  "jobsNewToday": 14
+ },
+ "jobs": [
+  {
+   "key": "demo:nimbus-labs:1000",
+   "title": "Senior Backend Engineer",
+   "company": "Nimbus Labs",
+   "location": "Tel Aviv-Yafo, Israel",
+   "url": "https://example.com/jobs/1000",
+   "seniority": "senior",
+   "tab": "new",
+   "ageMinutes": 3,
+   "publishedGapMinutes": 41
+  },
+  {
+   "key": "demo:quill-ai:1001",
+   "title": "AI Engineer",
+   "company": "Quill AI",
+   "location": "Tel Aviv-Yafo, Israel",
+   "url": "https://example.com/jobs/1001",
+   "seniority": "",
+   "tab": "new",
+   "ageMinutes": 9
+  },
+  {
+   "key": "demo:harbor-pay:1002",
+   "title": "Backend Developer (Java)",
+   "company": "Harbor Pay",
+   "location": "Herzliya, Israel",
+   "url": "https://example.com/jobs/1002",
+   "seniority": "",
+   "tab": "new",
+   "ageMinutes": 14,
+   "publishedGapMinutes": 20
+  },
+  {
+   "key": "demo:kestrel-systems:1003",
+   "title": "Software Engineer II",
+   "company": "Kestrel Systems",
+   "location": "Haifa, Israel",
+   "url": "https://example.com/jobs/1003",
+   "seniority": "mid",
+   "tab": "new",
+   "ageMinutes": 26
+  },
+  {
+   "key": "demo:sabra-cloud:1004",
+   "title": "Junior Java Developer",
+   "company": "Sabra Cloud",
+   "location": "Ramat Gan, Israel",
+   "url": "https://example.com/jobs/1004",
+   "seniority": "junior",
+   "tab": "new",
+   "ageMinutes": 38,
+   "publishedGapMinutes": 55
+  },
+  {
+   "key": "demo:orbitlane:1005",
+   "title": "Mid-Level Backend Engineer",
+   "company": "Orbitlane",
+   "location": "Tel Aviv-Yafo, Israel",
+   "url": "https://example.com/jobs/1005",
+   "seniority": "mid",
+   "tab": "new",
+   "ageMinutes": 52
+  },
+  {
+   "key": "demo:meridian-ads:1006",
+   "title": "Senior Software Engineer, Platform",
+   "company": "Meridian Ads",
+   "location": "Tel Aviv-Yafo, Israel",
+   "url": "https://example.com/jobs/1006",
+   "seniority": "senior",
+   "tab": "new",
+   "ageMinutes": 71,
+   "publishedGapMinutes": 90
+  },
+  {
+   "key": "demo:tamar-analytics:1007",
+   "title": "Backend AI Engineer",
+   "company": "Tamar Analytics",
+   "location": "Petah Tikva, Israel",
+   "url": "https://example.com/jobs/1007",
+   "seniority": "",
+   "tab": "new",
+   "ageMinutes": 96
+  },
+  {
+   "key": "demo:olive-mobility:1008",
+   "title": "מפתח/ת Backend בכיר/ה",
+   "company": "Olive Mobility",
+   "location": "רעננה",
+   "url": "https://example.com/jobs/1008",
+   "seniority": "senior",
+   "tab": "new",
+   "ageMinutes": 140
+  },
+  {
+   "key": "demo:zeta-grid:1009",
+   "title": "SW Engineer – Data Pipelines",
+   "company": "Zeta Grid",
+   "location": "Israel - Remote",
+   "url": "https://example.com/jobs/1009",
+   "seniority": "",
+   "tab": "new",
+   "ageMinutes": 185,
+   "publishedGapMinutes": 240
+  },
+  {
+   "key": "demo:lumen-health:1010",
+   "title": "Java Developer",
+   "company": "Lumen Health",
+   "location": "Jerusalem, Israel",
+   "url": "https://example.com/jobs/1010",
+   "seniority": "",
+   "tab": "new",
+   "ageMinutes": 260
+  },
+  {
+   "key": "demo:parsley:1011",
+   "title": "Senior Backend Developer",
+   "company": "Parsley",
+   "location": "Tel Aviv-Yafo, Israel",
+   "url": "https://example.com/jobs/1011",
+   "seniority": "senior",
+   "tab": "new",
+   "ageMinutes": 330,
+   "publishedGapMinutes": 410
+  },
+  {
+   "key": "demo:harbor-pay:1012",
+   "title": "Software Engineer, Payments",
+   "company": "Harbor Pay",
+   "location": "Herzliya, Israel",
+   "url": "https://example.com/jobs/1012",
+   "seniority": "",
+   "tab": "new",
+   "ageMinutes": 470
+  },
+  {
+   "key": "demo:gantry:1013",
+   "title": "Junior Backend Engineer",
+   "company": "Gantry",
+   "location": "Netanya, Israel",
+   "url": "https://example.com/jobs/1013",
+   "seniority": "junior",
+   "tab": "new",
+   "ageMinutes": 610
+  },
+  {
+   "key": "demo:quill-ai:1014",
+   "title": "Senior AI Engineer",
+   "company": "Quill AI",
+   "location": "Tel Aviv-Yafo, Israel",
+   "url": "https://example.com/jobs/1014",
+   "seniority": "senior",
+   "tab": "new",
+   "ageMinutes": 800,
+   "publishedGapMinutes": 1200
+  },
+  {
+   "key": "demo:bluefin-robotics:1015",
+   "title": "Software Developer",
+   "company": "Bluefin Robotics",
+   "location": "Yokneam, Israel",
+   "url": "https://example.com/jobs/1015",
+   "seniority": "",
+   "tab": "new",
+   "ageMinutes": 1250
+  },
+  {
+   "key": "demo:kestrel-systems:1016",
+   "title": "Experienced Backend Engineer",
+   "company": "Kestrel Systems",
+   "location": "Haifa, Israel",
+   "url": "https://example.com/jobs/1016",
+   "seniority": "",
+   "tab": "new",
+   "ageMinutes": 1500
+  },
+  {
+   "key": "demo:nimbus-labs:1017",
+   "title": "Mid Level Java Engineer",
+   "company": "Nimbus Labs",
+   "location": "Tel Aviv-Yafo, Israel",
+   "url": "https://example.com/jobs/1017",
+   "seniority": "mid",
+   "tab": "new",
+   "ageMinutes": 1900
+  },
+  {
+   "key": "demo:meridian-ads:1018",
+   "title": "Senior Backend Engineer, Search",
+   "company": "Meridian Ads",
+   "location": "Tel Aviv-Yafo, Israel",
+   "url": "https://example.com/jobs/1018",
+   "seniority": "senior",
+   "tab": "new",
+   "ageMinutes": 2700
+  },
+  {
+   "key": "demo:tamar-analytics:1019",
+   "title": "AI Engineer, Applied Research",
+   "company": "Tamar Analytics",
+   "location": "Tel Aviv-Yafo, Israel",
+   "url": "https://example.com/jobs/1019",
+   "seniority": "",
+   "tab": "new",
+   "ageMinutes": 4300
+  },
+  {
+   "key": "demo:sabra-cloud:1020",
+   "title": "Backend Engineer",
+   "company": "Sabra Cloud",
+   "location": "Ramat Gan, Israel",
+   "url": "https://example.com/jobs/1020",
+   "seniority": "",
+   "tab": "new",
+   "ageMinutes": 6000
+  },
+  {
+   "key": "demo:orbitlane:1021",
+   "title": "Junior Software Engineer",
+   "company": "Orbitlane",
+   "location": "Rehovot, Israel",
+   "url": "https://example.com/jobs/1021",
+   "seniority": "junior",
+   "tab": "new",
+   "ageMinutes": 9000
+  },
+  {
+   "key": "demo:fennel-security:1022",
+   "title": "Backend Engineer",
+   "company": "Fennel Security",
+   "location": "Tel Aviv-Yafo, Israel",
+   "url": "https://example.com/jobs/1022",
+   "seniority": "",
+   "tab": "companies",
+   "ageMinutes": 30,
+   "publishedGapMinutes": 12000
+  },
+  {
+   "key": "demo:fennel-security:1023",
+   "title": "Senior Software Engineer",
+   "company": "Fennel Security",
+   "location": "Tel Aviv-Yafo, Israel",
+   "url": "https://example.com/jobs/1023",
+   "seniority": "senior",
+   "tab": "companies",
+   "ageMinutes": 30,
+   "publishedGapMinutes": 20000
+  },
+  {
+   "key": "demo:cobalt-mobility:1024",
+   "title": "Java Backend Developer",
+   "company": "Cobalt Mobility",
+   "location": "Kfar Saba, Israel",
+   "url": "https://example.com/jobs/1024",
+   "seniority": "",
+   "tab": "companies",
+   "ageMinutes": 120,
+   "publishedGapMinutes": 30000
+  },
+  {
+   "key": "demo:cobalt-mobility:1025",
+   "title": "AI Engineer",
+   "company": "Cobalt Mobility",
+   "location": "Kfar Saba, Israel",
+   "url": "https://example.com/jobs/1025",
+   "seniority": "",
+   "tab": "companies",
+   "ageMinutes": 120,
+   "publishedGapMinutes": 9000
+  },
+  {
+   "key": "demo:delta-weave:1026",
+   "title": "Mid Backend Engineer",
+   "company": "Delta Weave",
+   "location": "Be'er Sheva, Israel",
+   "url": "https://example.com/jobs/1026",
+   "seniority": "mid",
+   "tab": "companies",
+   "ageMinutes": 700,
+   "publishedGapMinutes": 40000
+  }
+ ]
+}
