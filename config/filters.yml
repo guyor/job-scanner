@@ -40,6 +40,25 @@ locations:
     - herzliya
     - haifa
     - jerusalem
+    - ramat gan
+    - petah tikva
+    - petach tikva
+    - raanana
+    - ra'anana
+    - hod hasharon
+    - kfar saba
+    - kefar saba
+    - rehovot
+    - rishon
+    - netanya
+    - yokneam
+    - beer sheva
+    - be'er sheva
+    - givatayim
+    - bnei brak
+    - holon
+    - yehud
+    - or yehuda
   keep_unknown: true
 companies:
   exclude: []

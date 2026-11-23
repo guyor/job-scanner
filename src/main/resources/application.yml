@@ -1,0 +1,17 @@
+spring:
+  main:
+    web-application-type: none
+    banner-mode: "off"
+logging:
+  level:
+    root: INFO
+
+scanner:
+  mode: scan
+  state-dir: state
+  site-dir: site
+  config-dir: config
+  contact: https://github.com/guyor/job-scanner
+  budget-seconds: 360
+  recheck-minutes: 60
+  recent-company-days: 14
