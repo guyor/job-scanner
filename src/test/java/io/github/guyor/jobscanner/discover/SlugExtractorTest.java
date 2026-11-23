@@ -22,7 +22,7 @@ class SlugExtractorTest {
             "https://boards.greenhouse.io/embed/job_board?for=Acme-Labs|greenhouse:acme-labs",
             "https://jobs.lever.co/acme/0f0c-aaaa|lever:acme",
             "https://jobs.eu.lever.co/acme|lever:eu:acme",
-            "https://jobs.ashbyhq.com/Acme%20Co/abc|ashby:Acme Co",
+            "https://jobs.ashbyhq.com/Acme-Co/abc|ashby:Acme-Co",
             "https://www.comeet.com/jobs/coralogix/06.004|comeet:coralogix/06.004",
             "https://www.comeet.com/jobs/biocatch/03.00e/senior-dev/AB.123|comeet:biocatch/03.00E"})
     void extracts(String url, String expected) {
@@ -33,7 +33,7 @@ class SlugExtractorTest {
     @ValueSource(strings = {
             "https://boards.greenhouse.io/", "https://boards.greenhouse.io/embed/job_board",
             "https://jobs.lever.co/", "https://www.comeet.com/jobs/acme", "https://www.comeet.com/about/us/12.345",
-            "https://example.com/jobs/acme/06.004", "not a url", "https://jobs.ashbyhq.com/robots.txt"})
+            "https://example.com/jobs/acme/06.004", "not a url", "https://jobs.ashbyhq.com/robots.txt", "https://jobs.ashbyhq.com/Acme%20Co/abc"})
     void ignores(String url) {
         assertThat(SlugExtractor.extract(url, "t")).isEqualTo(Optional.empty());
     }

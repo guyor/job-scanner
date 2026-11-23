@@ -32,7 +32,8 @@ public final class SlugExtractor {
         switch (host) {
             case "boards.greenhouse.io", "job-boards.greenhouse.io", "job-boards.eu.greenhouse.io", "boards.eu.greenhouse.io" -> {
                 String slug = first(parts);
-                if (slug == null && uri.getRawQuery() != null) {
+                if ((slug == null || slug.equals("embed")) && uri.getRawQuery() != null) {
+                    slug = null;
                     Matcher m = Pattern.compile("(?:^|&)for=([^&]+)").matcher(uri.getRawQuery());
                     if (m.find()) {
                         slug = decode(m.group(1));

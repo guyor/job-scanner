@@ -17,7 +17,7 @@ Read both tabs before changing the design. A design change goes into the doc's d
 - Never bypass blocks: no proxies, no User-Agent or IP rotation. If a site blocks on purpose, ask Guy for approval or drop that source.
 - Politeness: one request at a time per ATS, adjustable interval (AIMD), freeze after repeated failures (persisted between runs), visible User-Agent with a contact address, respect robots.txt on HTML pages.
 - The tool stays free: GitHub Actions and GitHub Pages in a public repo, no paid services and no language model inside the tool.
-- Creating or changing anything visible to others (pushing, publishing, repo settings) needs Guy's explicit approval.
+- Creating or changing anything visible to others (pushing, publishing, repo settings) needs Guy's explicit approval. As of 2026-11-23 Guy gave a standing approval to proceed through the design stages and tests, and to stop only for something that needs his attention.
 
 ## Structure
 
@@ -28,7 +28,11 @@ Read both tabs before changing the design. A design change goes into the doc's d
 
 ## Commands
 
-Filled in as the code is added (build, test, run a scan locally).
+- Build and test: `mvn -B verify` (also runs in GitHub Actions as `build.yml` on every push). Maven Central may be blocked in the Claude cloud sandbox; then rely on the Actions run.
+- Scan locally (needs network): `mvn -q package -DskipTests && java -jar target/job-scanner.jar`. State goes to `state/`, the feed to `site/feed.json` (both git-ignored or on the `data` branch).
+- Discovery: `java -jar target/job-scanner.jar --scanner.mode=discover` (writes `candidates/candidates.json`, kept on the `candidates` branch).
+- Preview the UI with demo data: serve `site/` and open `/?demo`. Live: https://guyor.github.io/job-scanner/
+- Seed companies: `config/companies.yml` (ATS plus slug; Comeet slug is `name/uid`).
 
 ## Working notes
 
