@@ -26,9 +26,9 @@ public final class State {
 
     public static State load(Path dir) throws IOException {
         State s = new State();
-        List<Company> cs = JsonStore.read(dir.resolve("companies.json"), new TypeReference<>() { }, new ArrayList<>());
+        List<Company> cs = JsonStore.read(dir.resolve("companies.json"), new TypeReference<List<Company>>() { }, new ArrayList<>());
         cs.forEach(c -> s.companies.put(c.id(), c));
-        List<Job> js = JsonStore.read(dir.resolve("jobs.json"), new TypeReference<>() { }, new ArrayList<>());
+        List<Job> js = JsonStore.read(dir.resolve("jobs.json"), new TypeReference<List<Job>>() { }, new ArrayList<>());
         js.forEach(j -> s.jobs.put(j.key, j));
         s.hosts.putAll(JsonStore.read(dir.resolve("hosts.json"), new TypeReference<Map<String, HostState>>() { }, Map.of()));
         s.nearMisses.putAll(JsonStore.read(dir.resolve("near-misses.json"), new TypeReference<Map<String, NearMiss>>() { }, Map.of()));

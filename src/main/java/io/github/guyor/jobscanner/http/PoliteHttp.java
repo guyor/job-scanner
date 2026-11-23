@@ -36,7 +36,7 @@ public class PoliteHttp implements Fetcher {
                     .header("Accept", "application/json, text/html;q=0.8")
                     .GET().build();
             HttpResponse<String> res = client.send(req, HttpResponse.BodyHandlers.ofString());
-            return new Raw(res.statusCode(), res.body(), res.headers().firstValue("Retry-After"));
+            return new Transport.Raw(res.statusCode(), res.body(), res.headers().firstValue("Retry-After"));
         };
     }
 

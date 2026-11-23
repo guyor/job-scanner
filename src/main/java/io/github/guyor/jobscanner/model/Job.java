@@ -1,5 +1,6 @@
 package io.github.guyor.jobscanner.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.time.Instant;
 
@@ -22,6 +23,7 @@ public class Job {
     /** Consecutive successful checks in which the job was missing. */
     public int missingCount;
 
+    @JsonIgnore
     public boolean isOpen() {
         return closedAt == null;
     }

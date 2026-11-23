@@ -55,11 +55,9 @@ public class ComeetAdapter implements AtsAdapter {
             if (loc != null && loc.isObject()) {
                 location = Json.text(loc, "name");
                 if (location == null) {
-                    location = Json.text(loc, "city");
-                }
-                String country = Json.text(loc, "country");
-                if (country != null && (location == null || !location.contains(country))) {
-                    location = location == null ? country : location + ", " + country;
+                    String city = Json.text(loc, "city");
+                    String country = Json.text(loc, "country");
+                    location = city == null ? country : country == null ? city : city + ", " + country;
                 }
             }
             String link = Json.text(p, "url_active_page");
