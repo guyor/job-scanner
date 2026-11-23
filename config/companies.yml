@@ -1,0 +1,21 @@
+# Companies tracked from the start. Weekly discovery adds more. A company that is not on the
+# given ATS (or has no Israel jobs) is rechecked rarely, so a wrong entry costs almost nothing.
+# slug: greenhouse = board token, lever = site (prefix "eu:" for the EU host),
+#       ashby = job board name, comeet = "{name}/{uid}" from https://www.comeet.com/jobs/{name}/{uid}
+companies:
+  - {ats: greenhouse, slug: yotpo, name: Yotpo}
+  - {ats: greenhouse, slug: nanit, name: Nanit}
+  - {ats: greenhouse, slug: optimove, name: Optimove}
+  - {ats: greenhouse, slug: riskified, name: Riskified}
+  - {ats: greenhouse, slug: payoneer, name: Payoneer}
+  - {ats: greenhouse, slug: appsflyer, name: AppsFlyer}
+  - {ats: greenhouse, slug: similarweb, name: Similarweb}
+  - {ats: comeet, slug: coralogix/06.004, name: Coralogix}
+  - {ats: comeet, slug: biocatch/03.00E, name: BioCatch}
+  - {ats: comeet, slug: vastdata/43.001, name: VAST Data}
+  - {ats: comeet, slug: team8/61.003, name: Team8}
+  - {ats: comeet, slug: cognyte/f2.009, name: Cognyte}
+  - {ats: comeet, slug: drivenets/72.006, name: DriveNets}
+  - {ats: comeet, slug: comm-it/76.008, name: CommIT}
+  - {ats: comeet, slug: kelatechnologies/2A.007, name: Kela Technologies}
+  - {ats: comeet, slug: ceva/76.005, name: CEVA}

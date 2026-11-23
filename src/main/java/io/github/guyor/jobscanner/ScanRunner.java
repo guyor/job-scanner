@@ -10,6 +10,7 @@ import io.github.guyor.jobscanner.filter.LocationFilter;
 import io.github.guyor.jobscanner.filter.TitleFilter;
 import io.github.guyor.jobscanner.http.HostPacer;
 import io.github.guyor.jobscanner.http.PoliteHttp;
+import io.github.guyor.jobscanner.scan.CompanySeeds;
 import io.github.guyor.jobscanner.scan.FeedBuilder;
 import io.github.guyor.jobscanner.scan.ScanService;
 import io.github.guyor.jobscanner.state.JsonStore;
@@ -42,6 +43,10 @@ public class ScanRunner implements CommandLineRunner {
         FilterConfig cfg = FilterConfig.load(props.getConfigDir().resolve("filters.yml"));
         TitleFilter titles = new TitleFilter(cfg);
         State state = State.load(props.getStateDir());
+        int seeded = CompanySeeds.apply(state, props.getConfigDir().resolve("companies.yml"));
+        if (seeded > 0) {
+            log.info("Added {} companies from config/companies.yml", seeded);
+        }
 
         var lastScan = clock.instant();
         if ("scan".equals(props.getMode())) {

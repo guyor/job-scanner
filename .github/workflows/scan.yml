@@ -1,0 +1,106 @@
+name: scan
+
+on:
+  schedule:
+    # Israel is UTC+2/+3. Every 15 minutes from about 07:00 to 22:00 local, hourly at night.
+    - cron: '7,22,37,52 5-19 * * *'
+    - cron: '23 20-23,0-4 * * *'
+  workflow_dispatch:
+
+# One scan at a time; a run that is still going is never cancelled, the next one waits.
+concurrency:
+  group: scan
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    outputs:
+      publish: ${{ steps.decide.outputs.publish }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Restore state from the data branch
+        run: |
+          mkdir -p state
+          if git ls-remote --exit-code --heads origin data >/dev/null 2>&1; then
+            git fetch --depth=1 origin data
+            git archive FETCH_HEAD | tar -x -C state
+          fi
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+          cache: maven
+
+      - name: Build
+        run: mvn -B -ntp -q package -DskipTests
+
+      - name: Scan
+        run: java -jar target/job-scanner.jar
+
+      - name: Save state to the data branch
+        run: |
+          cd state
+          git init -q -b data
+          git config user.name "job-scanner"
+          git config user.email "noreply@users.noreply.github.com"
+          git add -A
+          git commit -q -m "state $(date -u +%Y-%m-%dT%H:%MZ)"
+          git push -q -f "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" HEAD:refs/heads/data
+
+      - name: Decide whether the site needs publishing
+        id: decide
+        run: |
+          # Publish when the jobs changed, or at least every 6 hours so "last scan" stays fresh.
+          new_hash=$(jq -S '{jobs, stats}' site/feed.json | sha256sum | cut -d' ' -f1)
+          old_hash=$(cat state/publish.hash 2>/dev/null || true)
+          last=$(cat state/publish.at 2>/dev/null || echo 0)
+          now=$(date +%s)
+          if [ "$new_hash" != "$old_hash" ] || [ $((now - last)) -gt 21600 ]; then
+            echo "publish=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "publish=false" >> "$GITHUB_OUTPUT"
+          fi
+          echo "$new_hash" > /tmp/publish.hash
+          echo "$now" > /tmp/publish.at
+
+      - name: Build the site folder
+        if: steps.decide.outputs.publish == 'true'
+        run: |
+          mkdir -p _site
+          cp -r site/. _site/
+
+      - uses: actions/upload-pages-artifact@v3
+        if: steps.decide.outputs.publish == 'true'
+        with:
+          path: _site
+
+      - name: Remember what was published
+        if: steps.decide.outputs.publish == 'true'
+        run: |
+          cd state
+          cp /tmp/publish.hash publish.hash
+          cp /tmp/publish.at publish.at
+          git add -A
+          git commit -q -m "published $(date -u +%Y-%m-%dT%H:%MZ)"
+          git push -q -f "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" HEAD:refs/heads/data
+
+  deploy:
+    needs: scan
+    if: needs.scan.outputs.publish == 'true'
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
