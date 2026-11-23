@@ -1,0 +1,45 @@
+# Title matching: a title passes if it has at least one `field` word and at least one
+# `role` word (a `both` word counts as both). `seniority` only tags and never decides.
+# `exclude` always wins. Words are matched as whole words after lowercasing and turning
+# punctuation into spaces; multi-word variants (mid level, tech lead) match as a sequence.
+titles:
+  field:
+    backend: [backend, back-end, back end]
+    software: [software, sw]
+    java: [java]
+    ai: [ai]
+  role:
+    engineer: [engineer, eng]
+    developer: [developer, dev]
+    programmer: [programmer]
+  both: [swe, sde]
+  seniority:
+    junior: [junior, jr]
+    mid: [mid, mid level, mid-level, mid lvl, mid-lvl]
+    senior: [senior, sr]
+    experienced: [experienced]
+  exclude:
+    - intern
+    - student
+    - architect
+    - tech lead
+    - lead
+    - principal
+    - staff
+    - manager
+    - test
+    - qa
+    - sdet
+    - sales
+    - solutions
+locations:
+  israel:
+    - israel
+    - ישראל
+    - tel aviv
+    - herzliya
+    - haifa
+    - jerusalem
+  keep_unknown: true
+companies:
+  exclude: []
