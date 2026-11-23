@@ -1,0 +1,6 @@
+{"jobs":[
+ {"id":8172510,"title":"Senior Backend Engineer","location":{"name":"Tel Aviv"},"absolute_url":"https://example.com/gh/8172510","first_published":"2026-09-09T10:50:29-04:00"},
+ {"id":8138044,"title":"Account Executive, AI Sales","location":{"name":"Tel Aviv"},"absolute_url":"https://example.com/gh/8138044","first_published":"2026-09-18T13:27:51-04:00"},
+ {"id":1,"title":"Backend Engineer","location":{"name":"New York, NY"},"absolute_url":"https://example.com/gh/1","first_published":null},
+ {"id":2,"title":"Java Specialist","location":{"name":"Herzliya"},"absolute_url":"https://example.com/gh/2"}
+],"meta":{"total":4}}
