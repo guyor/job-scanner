@@ -5,11 +5,15 @@ import io.github.guyor.jobscanner.ats.AtsAdapter;
 import io.github.guyor.jobscanner.ats.ComeetAdapter;
 import io.github.guyor.jobscanner.ats.GreenhouseAdapter;
 import io.github.guyor.jobscanner.ats.LeverAdapter;
+import io.github.guyor.jobscanner.discover.Candidate;
+import io.github.guyor.jobscanner.discover.CommonCrawlSource;
+import io.github.guyor.jobscanner.discover.DiscoverService;
 import io.github.guyor.jobscanner.filter.FilterConfig;
 import io.github.guyor.jobscanner.filter.LocationFilter;
 import io.github.guyor.jobscanner.filter.TitleFilter;
 import io.github.guyor.jobscanner.http.HostPacer;
 import io.github.guyor.jobscanner.http.PoliteHttp;
+import io.github.guyor.jobscanner.model.Company;
 import io.github.guyor.jobscanner.scan.CompanySeeds;
 import io.github.guyor.jobscanner.scan.FeedBuilder;
 import io.github.guyor.jobscanner.scan.ScanService;
@@ -40,6 +44,10 @@ public class ScanRunner implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         Clock clock = Clock.systemUTC();
+        if ("discover".equals(props.getMode())) {
+            discover(clock);
+            return;
+        }
         FilterConfig cfg = FilterConfig.load(props.getConfigDir().resolve("filters.yml"));
         TitleFilter titles = new TitleFilter(cfg);
         State state = State.load(props.getStateDir());
@@ -48,6 +56,10 @@ public class ScanRunner implements CommandLineRunner {
             log.info("Added {} companies from config/companies.yml", seeded);
         }
 
+        int merged = mergeCandidates(state, clock);
+        if (merged > 0) {
+            log.info("Merged {} discovered candidates", merged);
+        }
         var lastScan = clock.instant();
         if ("scan".equals(props.getMode())) {
             HostPacer pacer = new HostPacer(state.hosts, clock, Thread::sleep, RandomGenerator.getDefault());
@@ -67,5 +79,27 @@ public class ScanRunner implements CommandLineRunner {
         }
         FeedBuilder feed = new FeedBuilder(titles, clock, Duration.ofDays(props.getRecentCompanyDays()));
         JsonStore.write(props.getSiteDir().resolve("feed.json"), feed.build(state, lastScan));
+    }
+
+    private void discover(Clock clock) throws Exception {
+        State state = State.load(props.getStateDir());
+        HostPacer pacer = new HostPacer(state.hosts, clock, Thread::sleep, RandomGenerator.getDefault());
+        pacer.setBase("index.commoncrawl.org", 3_000);
+        PoliteHttp http = new PoliteHttp(PoliteHttp.javaTransport(), pacer, props.userAgent());
+        DiscoverService service = new DiscoverService(new CommonCrawlSource(http, clock));
+        int added = service.run(props.getCandidatesDir(), Duration.ofSeconds(props.getDiscoverBudgetSeconds()));
+        log.info("Discovery added {} candidates, {} in total", added, DiscoverService.load(props.getCandidatesDir()).size());
+    }
+
+    /** Adds discovered candidates the state does not know yet, as unverified companies discovered now. */
+    private int mergeCandidates(State state, Clock clock) throws Exception {
+        int added = 0;
+        for (Candidate c : DiscoverService.load(props.getCandidatesDir())) {
+            Company company = new Company(c.ats(), c.slug(), c.name(), c.source(), clock.instant());
+            if (state.companies.putIfAbsent(company.id(), company) == null) {
+                added++;
+            }
+        }
+        return added;
     }
 }

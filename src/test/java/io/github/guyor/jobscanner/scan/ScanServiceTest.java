@@ -201,6 +201,18 @@ class ScanServiceTest {
     }
 
     @Test
+    void knownCompaniesAreCheckedBeforeUnverifiedCandidates() {
+        Company candidate = new Company("greenhouse", "candidate", "Candidate", "common-crawl", clock.now);
+        Company known = new Company("greenhouse", "known", "Known", "seed", clock.now);
+        known.status = Company.ACTIVE;
+        known.nextCheckAt = clock.now.minusSeconds(60);
+        state.companies.clear();
+        state.companies.put(candidate.id(), candidate);
+        state.companies.put(known.id(), known);
+        assertThat(service.dueQueue(state)).extracting(c -> c.slug).containsExactly("known", "candidate");
+    }
+
+    @Test
     void runStopsWhenBudgetIsUsedUp() throws Exception {
         for (int i = 0; i < 5; i++) {
             Company c = new Company("greenhouse", "c" + i, "C" + i, "t", clock.now);

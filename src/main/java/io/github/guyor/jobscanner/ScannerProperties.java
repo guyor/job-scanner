@@ -7,11 +7,13 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties(prefix = "scanner")
 public class ScannerProperties {
 
-    /** scan (scan due companies, then rebuild outputs) or build-feed (only rebuild outputs). */
+    /** scan (scan due companies, then rebuild outputs), discover (weekly company discovery) or build-feed (only rebuild outputs). */
     private String mode = "scan";
     private Path stateDir = Path.of("state");
     private Path siteDir = Path.of("site");
     private Path configDir = Path.of("config");
+    private Path candidatesDir = Path.of("candidates");
+    private int discoverBudgetSeconds = 3000;
     /** Shown in the User-Agent so site owners can reach us. */
     private String contact = "https://github.com/guyor/job-scanner";
     private int budgetSeconds = 360;
@@ -26,6 +28,10 @@ public class ScannerProperties {
     public void setSiteDir(Path siteDir) { this.siteDir = siteDir; }
     public Path getConfigDir() { return configDir; }
     public void setConfigDir(Path configDir) { this.configDir = configDir; }
+    public Path getCandidatesDir() { return candidatesDir; }
+    public void setCandidatesDir(Path candidatesDir) { this.candidatesDir = candidatesDir; }
+    public int getDiscoverBudgetSeconds() { return discoverBudgetSeconds; }
+    public void setDiscoverBudgetSeconds(int s) { this.discoverBudgetSeconds = s; }
     public String getContact() { return contact; }
     public void setContact(String contact) { this.contact = contact; }
     public int getBudgetSeconds() { return budgetSeconds; }

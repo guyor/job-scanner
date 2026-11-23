@@ -48,13 +48,15 @@ public class ScanService {
         this.recheck = recheck;
     }
 
-    /** Companies that are due now, most overdue first (never-checked first). */
+    /** Companies that are due now: known ones first, most overdue first; unverified candidates last. */
     public List<Company> dueQueue(State state) {
         Instant now = clock.instant();
         return state.companies.values().stream()
                 .filter(c -> !Company.GONE.equals(c.status))
                 .filter(c -> c.nextCheckAt == null || !c.nextCheckAt.isAfter(now))
-                .sorted(Comparator.comparing((Company c) -> c.nextCheckAt, Comparator.nullsFirst(Comparator.naturalOrder())))
+                // Known companies first, so freshly discovered (unverified) ones only use the leftover budget.
+                .sorted(Comparator.comparingInt((Company c) -> Company.UNVERIFIED.equals(c.status) ? 1 : 0)
+                        .thenComparing(c -> c.nextCheckAt, Comparator.nullsFirst(Comparator.naturalOrder())))
                 .toList();
     }
 

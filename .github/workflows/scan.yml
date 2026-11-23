@@ -32,6 +32,14 @@ jobs:
             git archive FETCH_HEAD | tar -x -C state
           fi
 
+      - name: Restore candidates from the candidates branch
+        run: |
+          mkdir -p candidates
+          if git ls-remote --exit-code --heads origin candidates >/dev/null 2>&1; then
+            git fetch --depth=1 origin candidates
+            git archive FETCH_HEAD | tar -x -C candidates
+          fi
+
       - uses: actions/setup-java@v4
         with:
           distribution: temurin

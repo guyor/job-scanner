@@ -1,0 +1,52 @@
+name: discover
+
+on:
+  schedule:
+    # Weekly, Saturday night (about 01:00-02:00 Israel time), when nobody is looking at the feed.
+    - cron: '17 23 * * 5'
+  workflow_dispatch:
+
+# Its own concurrency group and its own branch, so it never blocks or cancels a scan.
+concurrency:
+  group: discover
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  discover:
+    runs-on: ubuntu-latest
+    timeout-minutes: 70
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Restore candidates from the candidates branch
+        run: |
+          mkdir -p candidates
+          if git ls-remote --exit-code --heads origin candidates >/dev/null 2>&1; then
+            git fetch --depth=1 origin candidates
+            git archive FETCH_HEAD | tar -x -C candidates
+          fi
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+          cache: maven
+
+      - name: Build
+        run: mvn -B -ntp -q package -DskipTests
+
+      - name: Discover
+        run: java -jar target/job-scanner.jar --scanner.mode=discover
+
+      - name: Save candidates to the candidates branch
+        run: |
+          cd candidates
+          git init -q -b candidates
+          git config user.name "job-scanner"
+          git config user.email "noreply@users.noreply.github.com"
+          git add -A
+          git commit -q -m "candidates $(date -u +%Y-%m-%dT%H:%MZ)"
+          git push -q -f "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" HEAD:refs/heads/candidates
