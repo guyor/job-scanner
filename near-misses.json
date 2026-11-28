@@ -1,0 +1,62 @@
+{
+  "comeet:ceva/76.005:36.F64" : {
+    "company" : "CEVA",
+    "title" : "AI NPU VLSI Team Leader",
+    "location" : "Ra'anana, Israel (IL)",
+    "url" : "https://www.ceva-ip.com/career/position/36.F64/"
+  },
+  "comeet:ceva/76.005:87.B50" : {
+    "company" : "CEVA",
+    "title" : "Edge AI & Sensing Software Senior Team Leader",
+    "location" : "Ra'anana, Israel (IL)",
+    "url" : "https://www.ceva-ip.com/career/position/87.B50/"
+  },
+  "comeet:ceva/76.005:E2.376" : {
+    "company" : "CEVA",
+    "title" : "VLSI Backend Team Leader",
+    "location" : "Ra'anana, Israel (IL)",
+    "url" : "https://www.ceva-ip.com/career/position/E2.376/"
+  },
+  "comeet:drivenets/72.006:B5.F62" : {
+    "company" : "DriveNets",
+    "title" : "Senior Finance Systems & AI Implementer",
+    "location" : "Raanana, Israel",
+    "url" : "https://drivenets.com/job/?id=B5.F62"
+  },
+  "comeet:team8/61.003:D9.37E" : {
+    "company" : "Team8",
+    "title" : "Team8- Fintech Stealth Startup- Senior AI Researcher, Evaluation & Agent Performance",
+    "location" : "Tel Aviv, Israel",
+    "url" : "https://team8.vc/career/team8-fintech/team8-fintech-stealth-startup-senior-ai-researcher-evaluation-agent-performance/"
+  },
+  "comeet:vastdata/43.001:1F.919" : {
+    "company" : "VAST Data",
+    "title" : "SW Development Team Leader",
+    "location" : "Israel - Tel Aviv",
+    "url" : "https://vastdata.com/careers/co/tel-aviv/1F.919/sw-development-team-leader/all/"
+  },
+  "comeet:vastdata/43.001:1F.919-17.10C" : {
+    "company" : "VAST Data",
+    "title" : "SW Development Team Leader",
+    "location" : "Israel - Haifa",
+    "url" : "https://vastdata.com/careers/co/tel-aviv/1F.919/sw-development-team-leader/all/"
+  },
+  "greenhouse:appsflyer:8868191002" : {
+    "company" : "AppsFlyer",
+    "title" : "Software Team Leader- Domain Team",
+    "location" : "Herzliya",
+    "url" : "https://careers.appsflyer.com/jobs/position/8868191002?gh_jid=8868191002"
+  },
+  "greenhouse:nanit:6217971004" : {
+    "company" : "Nanit",
+    "title" : "Backend Platform Team Leader ",
+    "location" : "Ramat Gan (Hybrid)",
+    "url" : "https://www.nanit.com/pages/careers?gh_jid=6217971004"
+  },
+  "greenhouse:payoneer:8364230" : {
+    "company" : "Payoneer",
+    "title" : "Director, AI Governance & Responsible AI",
+    "location" : "Herzliya, Tel Aviv District, Israel",
+    "url" : "https://www.payoneer.com/careers/position/8364230/?gh_jid=8364230"
+  }
+}

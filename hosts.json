@@ -1,0 +1,12 @@
+{
+  "boards-api.greenhouse.io" : {
+    "intervalMs" : 2000,
+    "frozenUntil" : null,
+    "errorStreak" : 0
+  },
+  "www.comeet.com" : {
+    "intervalMs" : 10000,
+    "frozenUntil" : null,
+    "errorStreak" : 0
+  }
+}
